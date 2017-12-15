@@ -1,0 +1,88 @@
+extends layout
+
+block content
+	script(type="text/javascript" src="/javascripts/dashController.js")
+	h2 
+		div.text-center
+			p Welcome #{userObj.name} !
+	div(ng-app="myapp" ng-controller="getBuses" ng-init="currUser= #{JSON.stringify(userObj)}")
+		.row
+			.col-md-4
+				h3 Current Booked Tickets:
+				div.widget.stacked.widget-table(ng-init='loadTickets()')
+					table.table-bordered.table-striped
+						thead
+							tr
+								th.col-md-6 Bus Name
+								th.col-md-6 Source 
+								th.col-md-6 Destination
+								th.col-md-6 Seat No
+								th.td-actions
+						tbody
+							tr(ng-repeat='ticket in userTickets')
+								td {{ticket.bus_name}}
+								td {{ticket.source}}
+								td {{ticket.destination}}
+								td {{ticket.seat_no}}
+								td.td-actions
+									button.btn.btn-small.btn-primary(ng-click='cancelTicket($index)')
+										i.btn-icon-only Cancel
+			.col-md-8
+				h3 Book Tickets:
+				div.span12
+					form.form-inline
+						input.span5(name="from" type="text" placeholder='Source' ng-model='from')
+						input.span5(name="to" type="text" placeholder='Destination' ng-model='to')
+
+						button.btn.btn-primary(ng-click='getBuses()')
+							span(style="font-size:16px").glyphicon.glyphicon-search
+					
+					div.widget.stacked.widget-table.action-table
+						div.widget-content
+							table.table.table-bordered.table-striped
+								thead
+									tr
+										th Name
+										th Source
+										th Destination
+										th SeatsAvailable
+										th.td-actions
+								tbody
+									tr(ng-repeat="bus in buses")
+										td {{bus.bus_name}}
+										td {{bus.source}}
+										td {{bus.destination}}
+										td {{bus.seats_available}}
+										td.td-actions
+											button.btn.btn-small.btn-primary(ng-click="bookTicket($index)")
+												i.btn-icon-only Book
+											button.btn.btn-small.btn-primary(ng-click="getBusDetails($index)" data-toggle="modal" data-target="#myModal")
+												i.btn-icon-only Get Details
+		div.modal.fade(id="myModal" role='dialog')
+			div.modal-dialog
+				div.modal-content
+					div.modal-header
+						h4 Bus Name
+					div.modal-body
+						table.table.table-bordered.table-striped
+							thead
+								tr
+									th Stop Name
+									th Arrival Time
+									th Departure Time
+							tbody
+								tr(ng-repeat="stop in busStops")
+									td {{stop}}
+									td 12.00
+									td 12.05
+									td.td-actions
+
+
+
+
+
+
+
+
+	
+

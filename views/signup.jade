@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-6.col-md-offset-3
+				div.text-center
+					h2 Sign Up
+				form(method='POST' action='/signupForm')
+					div.form-group
+						label(for='fname') Name
+						input.form-control(type='text' id='fname' name='fname' placeholder='Name' required=true)
+					div.form-group
+						label(for='email') Email
+						input.form-control(type='email' id='email' name='email' placeholder='Email' required=true)
+					div.form-group
+						label(for='pass') Password
+						input.form-control(type='password' id ='pass' name='pass' placeholder='Password' required=true)
+					div.text-center
+						button.btn.btn-primary(type='submit') Sign Up
